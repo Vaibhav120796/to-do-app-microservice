@@ -12,9 +12,9 @@ then
 fi
 
 echo "Creating virtual environment (venv)..."
-if [ ! -d 'venv' ];
+if [ ! -d '.venv' ];
 then
-    python3 -m venv venv
+    python3 -m venv .venv
     if [ $? -eq 1 ] 
     then
         echo "Vritual environment created."
@@ -25,7 +25,7 @@ fi
 
 echo "Activate virtual environment"
 activate () {
-  . ./venv/bin/activate
+  source ./.venv/bin/activate
 }
 
 activate
