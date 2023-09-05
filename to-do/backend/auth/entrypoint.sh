@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/bin/sh
+
 # When starting the django app container, we need to wait until the postgress DB is ready to receive connections
 # docker-compose "depends_on: - db" checks the container started, but is not enough to check that the database is ready to take connections
 # This script also accepts a command to be executed after the DB is ready (i.e. migrate, runserver or a script..)
@@ -30,3 +31,17 @@ else
   >&2 echo "No Postgres db defined - continuing..."
   exec "$@";
 fi
+
+
+echo "Running migrate..."
+python manage.py migrate
+
+# if superuser already exist the instruction failed warning about that
+# whitout blocking the process
+# echo "Creating superuser..."
+# export DJANGO_SUPERUSER_EMAIL=${DJANGO_SUPERUSER_EMAIL:-superadmin@email.com}
+# export DJANGO_SUPERUSER_PASSWORD=${DJANGO_SUPERUSER_PASSWORD:-supersecretpassword}
+# python manage.py createsuperuser --no-input
+
+echo "Starting server..."
+python manage.py runserver 0.0.0.0:8000

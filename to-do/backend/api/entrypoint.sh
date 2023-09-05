@@ -1,4 +1,5 @@
 #!/bin/sh
+
 # When starting the django app container, we need to wait until the postgress DB is ready to receive connections
 # docker-compose "depends_on: - db" checks the container started, but is not enough to check that the database is ready to take connections
 # This script also accepts a command to be executed after the DB is ready (i.e. migrate, runserver or a script..)
@@ -30,3 +31,5 @@ else
   >&2 echo "No Postgres db defined - continuing..."
   exec "$@";
 fi
+
+flask run --host=0.0.0.0

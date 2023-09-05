@@ -4,7 +4,7 @@
 # For example you could prepare a prod build with POSTGRES_ENABLED=1 and then a docker-compose.yml with db service and
 # pass connection arguments to auth service
 docker-build:
-	docker build . -f docker/Dockerfile -t registry.vedlogic.local:5000/todo:v1
+	docker build . -f ./Dockerfile -t registry.vedlogic.local:5000/todo:v1
 
 # to specify a different exposed port: make run PORT=8001
 docker-run:
@@ -27,3 +27,6 @@ local-build:
 	bash bootstrap.sh
 local-run:
 	bash start-local-server.sh
+
+docker-push:
+	docker push registry.vedlogic.local:5000/todo:v1
